@@ -7,7 +7,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Basic \
     CalendarWidget \
-    Chromium \
+    DU-About \
     LatinIME \
     masquerade \
     OmniStyle \

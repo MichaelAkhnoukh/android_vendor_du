@@ -20,8 +20,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.setupwizard.enterprise_mode=1 \
     ro.com.android.dateformat=MM-dd-yyyy \
     ro.build.selinux=1 \
-    ro.com.android.dataroaming=false \
-    ro.opa.eligible_device=true
+    ro.com.android.dataroaming=false
 
 # Backup Tool
 PRODUCT_COPY_FILES += \
@@ -82,18 +81,18 @@ include vendor/du/config/packages.mk
 
 PRODUCT_PACKAGE_OVERLAYS += vendor/du/overlay/common
 
-# Boot Animation
+# use specific resolution for bootanimation
+ifneq ($(SMALL_BOOTANIMATION_SIZE),)
+PRODUCT_COPY_FILES += \
+    vendor/du/prebuilt/common/media/res/$(SMALL_BOOTANIMATION_SIZE).zip:system/media/bootanimation.zip
+else
 PRODUCT_COPY_FILES += \
     vendor/du/prebuilt/common/media/bootanimation.zip:system/media/bootanimation.zip
-
-# SuperSU
-PRODUCT_COPY_FILES += \
-    vendor/du/prebuilt/common/UPDATE-SuperSU.zip:system/addon.d/UPDATE-SuperSU.zip \
-    vendor/du/prebuilt/common/etc/init.d/99SuperSUDaemon:system/etc/init.d/99SuperSUDaemon
+endif
 
 # Versioning System
 ANDROID_VERSION = 7.1.1
-DU_VERSION = v11.0
+DU_VERSION = v11.1
 ifndef DU_BUILD_TYPE
     DU_BUILD_TYPE := UNOFFICIAL
     PLATFORM_VERSION_CODENAME := UNOFFICIAL
@@ -131,4 +130,4 @@ DU_MOD_VERSION := DU_$(DU_BUILD)_$(ANDROID_VERSION)_$(shell date -u +%Y%m%d-%H%M
 PRODUCT_PROPERTY_OVERRIDES += \
     BUILD_DISPLAY_ID=$(BUILD_ID) \
     ro.du.version=$(DU_VERSION) \
-    ro.mod.version=$(DU_BUILD_TYPE)-v11.0
+    ro.mod.version=$(DU_BUILD_TYPE)-v11.1
